@@ -6,6 +6,7 @@ import com.geekbrains.geekmarketwinter.entites.Product;
 import com.geekbrains.geekmarketwinter.entites.User;
 import com.geekbrains.geekmarketwinter.repositories.specifications.ProductSpecs;
 import com.geekbrains.geekmarketwinter.services.*;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,6 +32,11 @@ public class ShopController {
     private ProductService productService;
     private ShoppingCartService shoppingCartService;
     private DeliveryAddressService deliverAddressService;
+
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
 
     @Autowired
     public void setProductService(ProductService productService) {
@@ -91,9 +97,7 @@ public class ShopController {
         model.addAttribute("products", products.getContent());
         model.addAttribute("page", currentPage);
         model.addAttribute("totalPage", products.getTotalPages());
-
         model.addAttribute("filters", filters.toString());
-
         model.addAttribute("min", min);
         model.addAttribute("max", max);
         model.addAttribute("word", word);
@@ -104,6 +108,7 @@ public class ShopController {
     public String addProductToCart(Model model, @PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         shoppingCartService.addToCart(httpServletRequest.getSession(), id);
         String referrer = httpServletRequest.getHeader("referer");
+        amqpTemplate.convertAndSend("shop", productService.getProductById(id).getTitle());
         return "redirect:" + referrer;
     }
 
@@ -119,6 +124,7 @@ public class ShopController {
         model.addAttribute("deliveryAddresses", deliveryAddresses);
         return "order-filler";
     }
+
 
     @PostMapping("/order/confirm")
     public String orderConfirm(Model model, HttpServletRequest httpServletRequest, @ModelAttribute(name = "order") Order orderFromFrontend, Principal principal) {
