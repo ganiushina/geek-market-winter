@@ -3,6 +3,9 @@ package com.geekbrains.geekmarketwinter.utils;
 import com.geekbrains.geekmarketwinter.entites.OrderItem;
 import com.geekbrains.geekmarketwinter.entites.Product;
 import lombok.Data;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.core.AmqpTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,12 @@ import java.util.List;
 public class ShoppingCart {
     private List<OrderItem> items;
     private Double totalCost;
+
+
+
+//    private final AmqpAdmin amqpAdmin;
+//    private final AmqpTemplate amqpTemplate;
+//
 
     public ShoppingCart() {
         items = new ArrayList<>();
@@ -31,6 +40,8 @@ public class ShoppingCart {
         orderItem.setQuantity(orderItem.getQuantity() + 1);
         recalculate();
     }
+
+
 
     public void setQuantity(Product product, Long quantity) {
         OrderItem orderItem = findOrderFromProduct(product);
