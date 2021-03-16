@@ -59,4 +59,5 @@ public class RegistrationController {
         logger.debug("Successfully created user: " + userName);
         return "registration-confirmation";
     }
+
 }

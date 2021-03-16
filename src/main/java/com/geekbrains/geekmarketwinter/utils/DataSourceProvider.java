@@ -1,11 +1,24 @@
 package com.geekbrains.geekmarketwinter.utils;
 
-public class DataSourceProvider {
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.lang.NonNull;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+import org.sql2o.Sql2o;
 
+import javax.sql.DataSource;
+
+//
 //@Configuration
 //@PropertySource("classpath:connection.properties")
 //public class DataSourceProvider implements TransactionManagementConfigurer {
-
+//
 //    @Value("${datasource.username}")
 //    private String USER_NAME;
 //    @Value("${datasource.password}")
@@ -37,4 +50,4 @@ public class DataSourceProvider {
 //    public Sql2o sql2o() {
 //        return new Sql2o(dataSource());
 //    }
-}
+//}

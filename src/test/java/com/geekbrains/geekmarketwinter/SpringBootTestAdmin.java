@@ -70,4 +70,12 @@ public class SpringBootTestAdmin {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void addProduct() throws Exception {
+        mockMvc.perform(formLogin("/shop/edit/0").user("admin").password("100"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/shop/edit/0"));
+    }
+
 }
