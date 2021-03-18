@@ -45,6 +45,10 @@
                     th:classappend="${activeTab == 'Products' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/products/edit/0}">Добавить товар</a>
                 </li>
+                <li class="nav-item" th:classappend="${activeTab == 'register' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/register/showRegistrationForm}">Зарегистрироваться<span
+                            class="sr-only">(current)</span></a>
+                </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <form th:action="@{/logout}" method="POST">
                         <input type="submit" class="btn btn-danger" value="Logout"/>

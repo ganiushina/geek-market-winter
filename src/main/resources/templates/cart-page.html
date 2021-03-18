@@ -43,6 +43,9 @@
                 <td th:text="${cartItem.itemPrice}"/>
                 <td th:text="${cartItem.quantity}"/>
                 <td th:text="${cartItem.totalPrice}"/>
+                <td>
+                    <a th:href="@{'cart/remove/' + ${cartItem.product.id}}" class="btn btn-primary">Удалить товару</a>
+                </td>
             </tr>
             <tr>
                 <td/><td/><td/>

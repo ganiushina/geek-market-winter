@@ -138,6 +138,7 @@ public class ShopController {
         order.setDeliveryDate(LocalDateTime.now().plusDays(7));
         order.setDeliveryPrice(0.0);
         order = orderService.saveOrder(order);
+        mailService.sendOrderMail(order);
         model.addAttribute("order", order);
         return "order-filler";
     }

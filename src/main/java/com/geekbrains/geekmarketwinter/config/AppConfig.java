@@ -1,6 +1,5 @@
 package com.geekbrains.geekmarketwinter.config;
 
-import com.geekbrains.geekmarketwinter.entites.Order;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
